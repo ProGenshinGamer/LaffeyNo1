@@ -1,0 +1,6 @@
+分支来自ReDawn2020的Alas-with-Dashboard
+原项目已经删库跑路，愿天堂没有倒狗和屎山
+自从使用ALAS以来，光是因为倒狗导致的删库就有3次，但愿不会有第四次
+本项目现由SayaGoodBye、ProGenshinGamer联合维护
+感谢ZuoSiZhu、0O0o0oOoO00、MengNianxiaoyao、ReDawn2020之前的分享
+
