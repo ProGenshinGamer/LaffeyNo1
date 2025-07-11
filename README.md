@@ -1,8 +1,14 @@
 由于不可明说原因，本库的ALAS请使用0.4.6或更前版本
+
 如无必要请勿分享，禁止用于任何盈利项目
+
 原项目来自ReDawn2020的Alas-with-Dashboard的ReDawnSY分支
+
 原项目已经删库跑路，希望天堂没有倒狗和屎山代码
+
 自从使用ALAS以来，光是因为倒狗导致的删库跑路事件就有3次，但愿这次不会有第四次
+
 本项目现由SayaGoodBye、ProGenshinGamer联合维护
+
 感谢ZuoSiZhu、0O0o0oOoO00、MengNianxiaoyao、ReDawn2020之前的分享
 
