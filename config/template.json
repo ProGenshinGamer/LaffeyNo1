@@ -447,54 +447,6 @@
       "Storage": {}
     }
   },
-  "Coalition": {
-    "Scheduler": {
-      "Enable": false,
-      "NextRun": "2020-01-01 00:00:00",
-      "Command": "Coalition",
-      "SuccessInterval": 30,
-      "FailureInterval": 30,
-      "ServerUpdate": "00:00"
-    },
-    "Campaign": {
-      "Name": "dynamic",
-      "Event": "campaign_main",
-      "Mode": "normal",
-      "UseClearMode": true,
-      "UseFleetLock": true,
-      "UseAutoSearch": false,
-      "Use2xBook": false,
-      "AmbushEvade": true
-    },
-    "Coalition": {
-      "Mode": "hard",
-      "Fleet": "single"
-    },
-    "StopCondition": {
-      "OilLimit": 1000,
-      "RunCount": 0,
-      "MapAchievement": "non_stop",
-      "StageIncrease": false,
-      "GetNewShip": false,
-      "ReachLevel": 0
-    },
-    "Emotion": {
-      "Mode": "calculate",
-      "Fleet1Value": 119,
-      "Fleet1Record": "2020-01-01 00:00:00",
-      "Fleet1Control": "prevent_yellow_face",
-      "Fleet1Recover": "not_in_dormitory",
-      "Fleet1Oath": false,
-      "Fleet2Value": 119,
-      "Fleet2Record": "2020-01-01 00:00:00",
-      "Fleet2Control": "prevent_yellow_face",
-      "Fleet2Recover": "not_in_dormitory",
-      "Fleet2Oath": false
-    },
-    "Storage": {
-      "Storage": {}
-    }
-  },
   "Event": {
     "Scheduler": {
       "Enable": false,
@@ -802,6 +754,54 @@
       "Storage": {}
     }
   },
+  "Coalition": {
+    "Scheduler": {
+      "Enable": false,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "Coalition",
+      "SuccessInterval": 30,
+      "FailureInterval": 30,
+      "ServerUpdate": "00:00"
+    },
+    "Campaign": {
+      "Name": "dynamic",
+      "Event": "campaign_main",
+      "Mode": "normal",
+      "UseClearMode": true,
+      "UseFleetLock": true,
+      "UseAutoSearch": false,
+      "Use2xBook": false,
+      "AmbushEvade": true
+    },
+    "Coalition": {
+      "Mode": "hard",
+      "Fleet": "single"
+    },
+    "StopCondition": {
+      "OilLimit": 1000,
+      "RunCount": 0,
+      "MapAchievement": "non_stop",
+      "StageIncrease": false,
+      "GetNewShip": false,
+      "ReachLevel": 0
+    },
+    "Emotion": {
+      "Mode": "calculate",
+      "Fleet1Value": 119,
+      "Fleet1Record": "2020-01-01 00:00:00",
+      "Fleet1Control": "prevent_yellow_face",
+      "Fleet1Recover": "not_in_dormitory",
+      "Fleet1Oath": false,
+      "Fleet2Value": 119,
+      "Fleet2Record": "2020-01-01 00:00:00",
+      "Fleet2Control": "prevent_yellow_face",
+      "Fleet2Recover": "not_in_dormitory",
+      "Fleet2Oath": false
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
   "MaritimeEscort": {
     "Scheduler": {
       "Enable": false,
@@ -829,7 +829,7 @@
     },
     "Campaign": {
       "Name": "D3",
-      "Event": "war_archives_20220728_cn",
+      "Event": "war_archives_20220428_cn",
       "Mode": "normal",
       "UseClearMode": true,
       "UseFleetLock": true,
@@ -887,54 +887,6 @@
     },
     "EnemyPriority": {
       "EnemyScaleBalanceWeight": "default_mode"
-    },
-    "Storage": {
-      "Storage": {}
-    }
-  },
-  "CoalitionSp": {
-    "Scheduler": {
-      "Enable": false,
-      "NextRun": "2020-01-01 00:00:00",
-      "Command": "CoalitionSp",
-      "SuccessInterval": 30,
-      "FailureInterval": 30,
-      "ServerUpdate": "00:00"
-    },
-    "Campaign": {
-      "Name": "sp",
-      "Event": "campaign_main",
-      "Mode": "normal",
-      "UseClearMode": true,
-      "UseFleetLock": true,
-      "UseAutoSearch": false,
-      "Use2xBook": false,
-      "AmbushEvade": true
-    },
-    "Coalition": {
-      "Mode": "sp",
-      "Fleet": "single"
-    },
-    "StopCondition": {
-      "OilLimit": 1000,
-      "RunCount": 0,
-      "MapAchievement": "non_stop",
-      "StageIncrease": false,
-      "GetNewShip": false,
-      "ReachLevel": 0
-    },
-    "Emotion": {
-      "Mode": "calculate",
-      "Fleet1Value": 119,
-      "Fleet1Record": "2020-01-01 00:00:00",
-      "Fleet1Control": "prevent_yellow_face",
-      "Fleet1Recover": "not_in_dormitory",
-      "Fleet1Oath": false,
-      "Fleet2Value": 119,
-      "Fleet2Record": "2020-01-01 00:00:00",
-      "Fleet2Control": "prevent_yellow_face",
-      "Fleet2Recover": "not_in_dormitory",
-      "Fleet2Oath": false
     },
     "Storage": {
       "Storage": {}
@@ -1373,6 +1325,54 @@
       "Storage": {}
     }
   },
+  "CoalitionSp": {
+    "Scheduler": {
+      "Enable": false,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "CoalitionSp",
+      "SuccessInterval": 30,
+      "FailureInterval": 30,
+      "ServerUpdate": "00:00"
+    },
+    "Campaign": {
+      "Name": "sp",
+      "Event": "campaign_main",
+      "Mode": "normal",
+      "UseClearMode": true,
+      "UseFleetLock": true,
+      "UseAutoSearch": false,
+      "Use2xBook": false,
+      "AmbushEvade": true
+    },
+    "Coalition": {
+      "Mode": "sp",
+      "Fleet": "single"
+    },
+    "StopCondition": {
+      "OilLimit": 1000,
+      "RunCount": 0,
+      "MapAchievement": "non_stop",
+      "StageIncrease": false,
+      "GetNewShip": false,
+      "ReachLevel": 0
+    },
+    "Emotion": {
+      "Mode": "calculate",
+      "Fleet1Value": 119,
+      "Fleet1Record": "2020-01-01 00:00:00",
+      "Fleet1Control": "prevent_yellow_face",
+      "Fleet1Recover": "not_in_dormitory",
+      "Fleet1Oath": false,
+      "Fleet2Value": 119,
+      "Fleet2Record": "2020-01-01 00:00:00",
+      "Fleet2Control": "prevent_yellow_face",
+      "Fleet2Recover": "not_in_dormitory",
+      "Fleet2Oath": false
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
   "Commission": {
     "Scheduler": {
       "Enable": true,
@@ -1495,7 +1495,7 @@
       "Command": "Guild",
       "SuccessInterval": 30,
       "FailureInterval": 30,
-      "ServerUpdate": "00:00, 03:00, 06:00, 09:00, 12:00, 15:00, 18:00, 21:00"
+      "ServerUpdate": "00:00, 05:50, 06:00, 11:50, 12:00, 17:50, 18:00, 20:50, 21:00"
     },
     "GuildLogistics": {
       "Enable": true,
@@ -1544,7 +1544,8 @@
       "ServerUpdate": "00:00"
     },
     "Awaken": {
-      "LevelCap": "level120"
+      "LevelCap": "level120",
+      "Favourite": false
     },
     "Storage": {
       "Storage": {}
