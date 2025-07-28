@@ -73,7 +73,7 @@
       "FailureInterval": 0,
       "ServerUpdate": "00:00"
     },
-	"AutoRestart": {
+    "AutoRestart": {
       "Enabled": false,
       "AttemptsToRestart": 114514,
       "NotifyWhenAutoRestart": false

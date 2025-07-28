@@ -1,9 +1,11 @@
+from module.campaign.assets import EVENT_20221124_ENTRANCE
 from module.campaign.campaign_base import CampaignBase as CampaignBase_
 from module.combat.assets import GET_ITEMS_1_RYZA
 from module.handler.fast_forward import AUTO_SEARCH
 from module.handler.assets import MYSTERY_ITEM
 from module.logger import logger
 from module.map.map_grids import SelectedGrids
+from module.ui.page import page_event, page_campaign_menu
 
 
 class CampaignBase(CampaignBase_):
@@ -11,6 +13,14 @@ class CampaignBase(CampaignBase_):
         'T1 > T2 > T3 > TS1 > T4 > T5',
         'TH1 > TH2 > TH3 > TH4 > TH5',
     ]
+
+    def ui_goto_event(self):
+        self.ui_ensure(destination=page_campaign_menu)
+        self.ui_click(
+            EVENT_20221124_ENTRANCE,
+            check_button=page_event.check_button,
+            appear_button=page_campaign_menu.check_button
+        )
 
     def campaign_set_chapter_event(self, chapter, mode='normal'):
         if chapter.startswith('t'):
