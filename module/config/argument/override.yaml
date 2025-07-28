@@ -201,7 +201,7 @@ Raid:
     ReachLevel: 0
   Emotion:
     Fleet2Value: 119
-    Fleet2Record: 2023-01-01 00:00:00
+    Fleet2Record: 2020-01-01 00:00:00
     Fleet2Control: prevent_yellow_face
     Fleet2Recover: not_in_dormitory
     Fleet2Oath: false
@@ -244,7 +244,7 @@ RaidDaily:
     ReachLevel: 0
   Emotion:
     Fleet2Value: 119
-    Fleet2Record: 2023-01-01 00:00:00
+    Fleet2Record: 2020-01-01 00:00:00
     Fleet2Control: prevent_yellow_face
     Fleet2Recover: not_in_dormitory
     Fleet2Oath: false
@@ -278,7 +278,7 @@ Coalition:
     ReachLevel: 0
   Emotion:
     Fleet2Value: 119
-    Fleet2Record: 2023-01-01 00:00:00
+    Fleet2Record: 2020-01-01 00:00:00
     Fleet2Control: prevent_yellow_face
     Fleet2Recover: not_in_dormitory
     Fleet2Oath: false
@@ -307,7 +307,7 @@ CoalitionSp:
     ReachLevel: 0
   Emotion:
     Fleet2Value: 119
-    Fleet2Record: 2023-01-01 00:00:00
+    Fleet2Record: 2020-01-01 00:00:00
     Fleet2Control: prevent_yellow_face
     Fleet2Recover: not_in_dormitory
     Fleet2Oath: false
