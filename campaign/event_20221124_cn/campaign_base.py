@@ -1,11 +1,11 @@
-from module.campaign.assets import EVENT_20221124_ENTRANCE
+from module.campaign.assets import EVENT_20221124_ENTRANCE, EVENT_20221124_PT_ICON
 from module.campaign.campaign_base import CampaignBase as CampaignBase_
 from module.combat.assets import GET_ITEMS_1_RYZA
-from module.handler.fast_forward import AUTO_SEARCH
 from module.handler.assets import MYSTERY_ITEM
+from module.handler.fast_forward import AUTO_SEARCH
 from module.logger import logger
 from module.map.map_grids import SelectedGrids
-from module.ui.page import page_event, page_campaign_menu
+from module.ui.page import page_campaign_menu, page_event
 
 
 class CampaignBase(CampaignBase_):
@@ -15,12 +15,15 @@ class CampaignBase(CampaignBase_):
     ]
 
     def ui_goto_event(self):
-        self.ui_ensure(destination=page_campaign_menu)
-        self.ui_click(
-            EVENT_20221124_ENTRANCE,
-            check_button=page_event.check_button,
-            appear_button=page_campaign_menu.check_button
-        )
+        if self.appear(EVENT_20221124_PT_ICON, offset=(20, 20)) and self.ui_page_appear(page_event):
+            logger.info('Already at EVENT_20221124')
+            return True
+        self.ui_ensure(page_campaign_menu)
+        if self.is_event_entrance_available():
+            self.ui_click(EVENT_20221124_ENTRANCE,
+                      check_button=EVENT_20221124_PT_ICON,
+                      appear_button=EVENT_20221124_ENTRANCE)
+            return True
 
     def campaign_set_chapter_event(self, chapter, mode='normal'):
         if chapter.startswith('t'):
@@ -81,7 +84,7 @@ class CampaignBase(CampaignBase_):
         # Handle a different GET_ITEMS_1
         if super().handle_mystery_items(button, drop=drop):
             return True
-        if self.appear(GET_ITEMS_1_RYZA, offset=(20, 20)):
+        if self.appear(GET_ITEMS_1_RYZA, offset=(-20, -100, 20, 20)):
             logger.attr('Mystery', 'Get item')
             if drop:
                 drop.add(self.device.image)

@@ -388,6 +388,7 @@ class ConfigGenerator:
         Returns:
             list[Event]: From latest to oldest
         """
+
         def calc_width(text):
             return len(text) + len(re.findall(
                 r'[\u3000-\u30ff\u3400-\u4dbf\u4e00-\u9fff、！（）]', text))
@@ -395,7 +396,7 @@ class ConfigGenerator:
         lines = []
         data_lines = []
         data_widths = []
-        column_width = [4]*7  # `:---`
+        column_width = [4] * 7  # `:---`
         events = []
         with open('./campaign/Readme.md', encoding='utf-8') as f:
             for text in f.readlines():
@@ -415,9 +416,9 @@ class ConfigGenerator:
                         event = Event(text)
                         events.append(event)
         for i, (line, old_width) in enumerate(zip(data_lines, data_widths)):
-            lines.append('| ' + ' | '.join([cell+' '*(width-length) for cell, width, length in zip(line, column_width, old_width)]) + ' |\n')
+            lines.append('| ' + ' | '.join([cell + ' ' * (width - length) for cell, width, length in zip(line, column_width, old_width)]) + ' |\n')
             if i == 0:
-                lines.append('| ' + ' | '.join([':'+'-'*(width-1) for width in column_width]) + ' |\n')
+                lines.append('| ' + ' | '.join([':' + '-' * (width - 1) for width in column_width]) + ' |\n')
         with open('./campaign/Readme.md', 'w', encoding='utf-8') as f:
             f.writelines(lines)
         return events[::-1]
@@ -430,8 +431,8 @@ class ConfigGenerator:
                                   v
                    args.json -----+-----> args.json
         """
-        for event in self.event:
-            for server in ARCHIVES_PREFIX.keys():
+        for server in ARCHIVES_PREFIX.keys():
+            for event in self.event:
                 name = event.__getattribute__(server)
 
                 def insert(key):
@@ -598,6 +599,7 @@ class ConfigUpdater:
         # 2025.06.26
         ('Coalition.Coalition.Mode', 'Coalition.Coalition.Mode', coalition_to_little_academy),
     ]
+
     # redirection += [
     #     (
     #         (f'{task}.Emotion.CalculateEmotion', f'{task}.Emotion.IgnoreLowEmotionWarn'),
@@ -643,11 +645,10 @@ class ConfigUpdater:
         # Update to latest event
         server = to_server(deep_get(new, 'Alas.Emulator.PackageName', 'cn'))
         if not is_template:
-            # for task in EVENTS + RAIDS + COALITIONS:
-            # for task in RAIDS + COALITIONS + EVENT_DAILY:
-            #     deep_set(new,
-            #              keys=f'{task}.Campaign.Event',
-            #              value=deep_get(self.args, f'{task}.Campaign.Event.{server}'))
+           # for task in EVENTS + RAIDS + COALITIONS:
+           #    deep_set(new,
+           #             keys=f'{task}.Campaign.Event',
+           #             value=deep_get(self.args, f'{task}.Campaign.Event.{server}'))
             for task in ['GemsFarming']:
                 if deep_get(new, keys=f'{task}.Campaign.Event', default='campaign_main') != 'campaign_main':
                     deep_set(new,
