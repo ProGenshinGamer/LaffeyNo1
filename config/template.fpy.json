@@ -21,7 +21,7 @@
   "FpyHeartbeat": {
     "Scheduler": {
       "Enable": true,
-      "NextRun": "2020-01-01 05:00:00",
+      "NextRun": "2023-01-01 05:00:00",
       "Command": "FpyHeartbeat",
       "SuccessInterval": 60,
       "FailureInterval": 120,
@@ -37,7 +37,7 @@
   "FpyMain": {
     "Scheduler": {
       "Enable": false,
-      "NextRun": "2020-01-01 05:00:00",
+      "NextRun": "2023-01-01 05:00:00",
       "Command": "FpyMain",
       "SuccessInterval": 60,
       "FailureInterval": 120,
@@ -67,7 +67,7 @@
   "FpyDailyFpSummon": {
     "Scheduler": {
       "Enable": false,
-      "NextRun": "2020-01-01 05:00:00",
+      "NextRun": "2023-01-01 05:00:00",
       "Command": "FpyDailyFpSummon",
       "SuccessInterval": 60,
       "FailureInterval": 120,
