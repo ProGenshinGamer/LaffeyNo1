@@ -14,6 +14,7 @@ from module.base.timer import Timer
 from module.config.utils import get_server_next_update
 from module.device.app_control import AppControl
 from module.device.control import Control
+from module.device.input import Input
 from module.device.screenshot import Screenshot
 from module.exception import (
     EmulatorNotRunningError,
@@ -66,13 +67,13 @@ def show_function_call():
     logger.info('Function calls:' + ''.join(func_list))
 
 
-class Device(Screenshot, Control, AppControl):
+class Device(Screenshot, Control, AppControl, Input):
     _screen_size_checked = False
     detect_record = set()
     click_record = collections.deque(maxlen=15)
     stuck_timer = Timer(60, count=60).start()
     stuck_timer_long = Timer(180, count=180).start()
-    stuck_long_wait_list = ['BATTLE_STATUS_S', 'PAUSE', 'LOGIN_CHECK']
+    stuck_long_wait_list = ['BATTLE_STATUS_S', 'PAUSE', 'LOGIN_CHECK', 'TEMPLATE_MANJUU']
 
     def __init__(self, *args, **kwargs):
         for trial in range(4):
@@ -157,6 +158,12 @@ class Device(Screenshot, Control, AppControl):
         if self.config.Emulator_ScreenshotMethod == 'ldopengl':
             if not (self.is_emulator and self.is_ldplayer_bluestacks_family):
                 logger.warning('ScreenshotMethod ldopengl is available on LD Player only, fallback to auto')
+                self.config.Emulator_ScreenshotMethod = 'auto'
+        # DroidCast is available on SDK 23 (Android 6.0) to SDK 32 (Android 12)
+        if self.config.Emulator_ScreenshotMethod in ['DroidCast', 'DroidCast_raw']:
+            if self.sdk_ver < 23 or self.sdk_ver > 32:
+                logger.warning(f'ScreenshotMethod {self.config.Emulator_ScreenshotMethod} is available on '
+                               f'Android 6.0 to 12 only (current sdk_ver={self.sdk_ver}), fallback to auto')
                 self.config.Emulator_ScreenshotMethod = 'auto'
         if not IS_WINDOWS and self.config.Emulator_ScreenshotMethod in ['nemu_ipc', 'ldopengl']:
             logger.warning(f'ScreenshotMethod {self.config.Emulator_ScreenshotMethod} is available on Windows only, '

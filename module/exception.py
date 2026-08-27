@@ -6,6 +6,10 @@ class OilExhausted(Exception):
     pass
 
 
+class OilMaxed(Exception):
+    pass
+
+
 class MapDetectionError(Exception):
     pass
 
@@ -64,4 +68,8 @@ class RequestHumanTakeover(Exception):
 
 
 class AutoSearchSetError(Exception):
+    pass
+
+
+class HardNotSatisfied(RequestHumanTakeover):
     pass

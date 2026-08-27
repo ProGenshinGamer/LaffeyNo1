@@ -4,7 +4,7 @@ from scipy import signal
 from module.base.button import Button
 from module.base.timer import Timer
 from module.base.utils import *
-from module.exception import RequestHumanTakeover
+from module.exception import HardNotSatisfied
 from module.handler.assets import AUTO_SEARCH_SET_MOB, AUTO_SEARCH_SET_BOSS, \
     AUTO_SEARCH_SET_ALL, AUTO_SEARCH_SET_STANDBY, \
     AUTO_SEARCH_SET_SUB_AUTO, AUTO_SEARCH_SET_SUB_STANDBY
@@ -127,7 +127,7 @@ class FleetOperator:
             stage = self.main.config.Campaign_Name
             logger.critical(f'Stage "{stage}" is a hard mode, '
                             f'please prepare your fleet "{str(self)}" in game before running Alas')
-            raise RequestHumanTakeover('Hard not satisfied', str(self))
+            raise HardNotSatisfied
 
     def clear(self, skip_first_screenshot=True):
         """
@@ -267,8 +267,23 @@ class FleetOperator:
 
         # Cropping FLEET_*_IN_USE to avoid detecting info_bar, also do the trick.
         # It also avoids wasting time on handling the info_bar.
-        image = rgb2gray(self.main.image_crop(self._in_use.button, copy=False))
-        return np.std(image.flatten(), ddof=1) > self.FLEET_IN_USE_STD
+        image = self.main.image_crop(self._in_use.button, copy=False)
+
+        # special fix for Perseus skin, which color is so flat
+        # https://github.com/LmeSzinc/AzurLaneAutoScript/issues/5678
+        # no ship is in color (71, 70, 63)
+        color = cv2.mean(image)[:3]
+        # Perseus skin
+        if color_similar(color, (224, 154, 114), threshold=30):
+            return True
+
+        # Akane Shinjo skin: Room of Secrets
+        # special fix for fleet card bottom area having a bluish background color
+        if color_similar(color, (124, 141, 171), threshold=30):
+            return True
+
+        gray = rgb2gray(image)
+        return np.std(gray.flatten(), ddof=1) > self.FLEET_IN_USE_STD
 
     def bar_opened(self):
         """
@@ -354,6 +369,8 @@ class FleetPreparation(InfoHandler):
                     pass
                 else:
                     submarine.clear()
+            else:
+                self.config.SUBMARINE = 0
             return False
 
         # Submarine.
@@ -363,9 +380,23 @@ class FleetPreparation(InfoHandler):
         logger.attr('map_allow_submarine', map_allow_submarine)
         if map_allow_submarine:
             if self.config.Submarine_Fleet:
+                if fleet_2.allow():
+                    self.device.click(fleet_2._clear)
+                    # no need to take new screenshot, because submarine check does not need the fleet 2 part
                 submarine.ensure_to_be(self.config.Submarine_Fleet)
             else:
-                submarine.clear()
+                # clear submarine and fleet2 together using simple click
+                # this is faster because no need to wait clicking animation to disappear
+                # click success can be guaranteed by later calls of clear()
+                op = False
+                if fleet_2.allow():
+                    self.device.click(fleet_2._clear)
+                    op = True
+                if submarine.allow():
+                    self.device.click(submarine._clear)
+                    op = True
+                if op:
+                    self.device.screenshot()
 
         # No need, this may clear FLEET_2 by mistake, clear FLEET_2 in map config.
         # if not fleet_2.allow():

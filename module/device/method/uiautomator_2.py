@@ -187,7 +187,8 @@ class Uiautomator2(Connection):
             self.sleep(second)
 
     def drag_uiautomator2(self, p1, p2, segments=1, shake=(0, 15), point_random=(-10, -10, 10, 10),
-                          shake_random=(-5, -5, 5, 5), swipe_duration=0.25, shake_duration=0.1):
+                          shake_random=(-5, -5, 5, 5), swipe_duration=0.25, shake_duration=0.1,
+                          hold_duration=0.0):
         """Drag and shake, like:
                      /\
         +-----------+  +  +
@@ -204,6 +205,7 @@ class Uiautomator2(Connection):
             shake_random: Add random to shake array.
             swipe_duration: Duration between way points.
             shake_duration: Duration between shake points.
+            hold_duration: Hold time before release.
         """
         p1 = np.array(p1) - random_rectangle_point(point_random)
         p2 = np.array(p2) - random_rectangle_point(point_random)
@@ -213,6 +215,13 @@ class Uiautomator2(Connection):
             (*p2 - shake - random_rectangle_point(shake_random), shake_duration),
             (*p2, shake_duration)
         ]
+        internal_hold = ensure_time(shake_duration) * 3
+        hold_duration = ensure_time(hold_duration) - internal_hold
+        if hold_duration > 0:
+            path += [
+                (*p2, hold_duration),
+                (*p2, 0),
+            ]
         path = [(int(x), int(y), d) for x, y, d in path]
         self._drag_along(path)
 
@@ -474,3 +483,26 @@ class Uiautomator2(Connection):
             description=resp.get('description', '')
         )
         return resp
+
+    def u2_set_fastinput_ime(self, enable: bool):
+        self.u2.set_fastinput_ime(enable)
+
+    def u2_current_ime(self):
+        return self.u2.current_ime()
+
+    def u2_send_keys(self, text: str, clear: bool=False):
+        self.u2.send_keys(text=text, clear=clear)
+
+    # Ref: https://uiautomator2.readthedocs.io/en/latest/api.html#uiautomator2.Session.send_action
+    def u2_send_action(self, code):
+        self.u2.send_action(code=code)
+
+    def u2_clear_text(self):
+        self.u2.clear_text()
+
+    @property
+    def clipboard(self):
+        return self.u2.clipboard
+    
+    def set_clipboard(self, text, label=None):
+        return self.u2.set_clipboard(text=text, label=label)

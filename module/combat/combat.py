@@ -67,7 +67,8 @@ class Combat(Level, HPBalancer, Retirement, SubmarineCall, CombatAuto, CombatMan
         Returns:
             bool:
         """
-        image = self.image_crop((0, 620, 1280, 720), copy=False)
+        image = self.image_crop((0, 620, 1280, 690), copy=False)
+        # note that CN/EN/TW are the same, but JP character is smaller
         similarity, button = TEMPLATE_COMBAT_LOADING.match_luma_result(image)
         if similarity > 0.85:
             loading = (button.area[0] + 38 - LOADING_BAR.area[0]) / (LOADING_BAR.area[2] - LOADING_BAR.area[0])
@@ -119,6 +120,26 @@ class Combat(Level, HPBalancer, Retirement, SubmarineCall, CombatAuto, CombatMan
             return PAUSE_Seaside
         if PAUSE_Ninja.match_template_color(self.device.image, offset=(10, 10)):
             return PAUSE_Ninja
+        if PAUSE_ShadowPuppetry.match_luma(self.device.image, offset=(10, 10)):
+            return PAUSE_ShadowPuppetry
+        if PAUSE_MaidCafe.match_template_color(self.device.image, offset=(10, 10)):
+            return PAUSE_MaidCafe
+        if PAUSE_Ancient.match_template_color(self.device.image, offset=(10, 10)):
+            return PAUSE_Ancient
+        if PAUSE_SpringInn.match_template_color(self.device.image, offset=(10, 10)):
+            return PAUSE_SpringInn
+        if PAUSE_ElvenVine.match_template_color(self.device.image, offset=(10, 10)):
+            return PAUSE_ElvenVine
+        if PAUSE_GildedReverie.match_template_color(self.device.image, offset=(10, 10)):
+            return PAUSE_GildedReverie
+        if PAUSE_AzureCore.match_template_color(self.device.image, offset=(10, 10)):
+            return PAUSE_AzureCore
+        if PAUSE_Nier.match_template_color(self.device.image, offset=(10, 10)):
+            return PAUSE_Nier
+        if PAUSE_OldeRoyal.match_template_color(self.device.image, offset=(10, 10)):
+            return PAUSE_OldeRoyal
+        if PAUSE_YoRHa.match_template_color(self.device.image, offset=(10, 10)):
+            return PAUSE_YoRHa
         return False
 
     def handle_combat_quit(self, offset=(20, 20), interval=3):
@@ -165,6 +186,35 @@ class Combat(Level, HPBalancer, Retirement, SubmarineCall, CombatAuto, CombatMan
         if QUIT_Ninja.match_luma(self.device.image, offset=offset):
             self.device.click(QUIT_Ninja)
             timer.reset()
+            return True
+        if QUIT_MaidCafe.match_luma(self.device.image, offset=offset):
+            self.device.click(QUIT_MaidCafe)
+            timer.reset()
+            return True
+        if QUIT_SpringInn.match_luma(self.device.image, offset=offset):
+            self.device.click(QUIT_SpringInn)
+            timer.reset()
+            return True
+        if QUIT_GildedReverie.match_luma(self.device.image, offset=offset):
+            self.device.click(QUIT_GildedReverie)
+            timer.reset()
+            return True
+        if QUIT_Nier.match_luma(self.device.image, offset=offset):
+            self.device.click(QUIT_Nier)
+            timer.reset()
+            return True
+        if QUIT_YoRHa.match_luma(self.device.image, offset=offset):
+            self.device.click(QUIT_YoRHa)
+            timer.reset()
+            return True
+        return False
+
+    def handle_combat_quit_reconfirm(self, interval=2):
+        # QUIT_RECONFIRM interval should shorter than QUIT,
+        # so multiple retries can be made during the interval of QUIT
+        if self.appear_then_click(QUIT_RECONFIRM, offset=(20, 20), interval=interval):
+            # reset QUIT timer to avoid duplicate QUIT clicks canceling QUIT_RECONFIRM
+            self.interval_reset(QUIT)
             return True
         return False
 
@@ -214,6 +264,7 @@ class Combat(Level, HPBalancer, Retirement, SubmarineCall, CombatAuto, CombatMan
                 continue
             if self.handle_story_skip():
                 continue
+            # slow down the screenshot interval earlier
             if not interval_set:
                 if self.is_combat_loading():
                     self.device.screenshot_interval_set('combat')
@@ -225,6 +276,9 @@ class Combat(Level, HPBalancer, Retirement, SubmarineCall, CombatAuto, CombatMan
                 logger.attr('BattleUI', pause)
                 if emotion_reduce:
                     self.emotion.reduce(fleet_index)
+                # fallback slow down if is_combat_loading() not detected
+                if not interval_set:
+                    self.device.screenshot_interval_set('combat')
                 break
 
     def handle_battle_preparation(self):
